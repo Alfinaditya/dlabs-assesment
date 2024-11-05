@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import RootLayout from '@/pages/RootLayout';
-import ResponsiveDesignPage from '@/pages/responsive-design/ResponsiveDesignPage';
+import RootLayout from '@/pages/layout';
+import ResponsiveDesignPage from './pages/responsive-design';
 
 const Router = () => {
 	const router = createBrowserRouter([

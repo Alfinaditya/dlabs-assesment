@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Table } from '@tanstack/react-table';
 import { ArrowDown, Circle, X, FileQuestion } from 'lucide-react';
 import { DataTableFacetedFilter } from './data-table-faceted-filter';
+import { statuses } from '../data/facet/user-facet';
 
 // import { Button } from "@/registry/new-york/ui/button"
 // import { Input } from "@/registry/new-york/ui/input"
@@ -15,31 +16,7 @@ import { DataTableFacetedFilter } from './data-table-faceted-filter';
 interface DataTableToolbarProps<TData> {
 	table: Table<TData>;
 }
-const statuses = [
-	{
-		value: 'pending',
-		label: 'Pending',
-		icon: FileQuestion,
-	},
-	{
-		value: 'processing',
-		label: 'Processing',
-		icon: FileQuestion,
-	},
-	{
-		value: 'success',
-		label: 'Success',
-		icon: Circle,
-	},
-];
 
-const priorities = [
-	{
-		label: 'Low',
-		value: 'low',
-		icon: ArrowDown,
-	},
-];
 export function DataTableToolbar<TData>({
 	table,
 }: DataTableToolbarProps<TData>) {
@@ -49,13 +26,6 @@ export function DataTableToolbar<TData>({
 	return (
 		<div className="flex items-center justify-between">
 			<div className="flex flex-1 items-center space-x-2">
-				{/* {table.getColumn('email') && (
-					<DataTableFacetedFilter
-						column={table.getColumn('email')}
-						title="Email"
-						options={statuses}
-					/>
-				)} */}
 				{table.getColumn('status') && (
 					<DataTableFacetedFilter
 						column={table.getColumn('status')}
