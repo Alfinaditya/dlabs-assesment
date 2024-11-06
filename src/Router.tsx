@@ -2,6 +2,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import RootLayout from '@/pages/layout';
 import ResponsiveDesignPage from './pages/responsive-design';
+import CrudPage from './pages/crud';
+import HomePage from './pages/home';
 
 const Router = () => {
 	const router = createBrowserRouter([
@@ -12,41 +14,18 @@ const Router = () => {
 			children: [
 				{
 					path: '/',
+					element: <HomePage />,
+				},
+				{
+					path: '/responsive-design',
 					element: <ResponsiveDesignPage />,
 				},
-				// {
-				// 	path: '/poke',
-				// 	element: <PokePage />,
-				// },
+				{
+					path: '/crud',
+					element: <CrudPage />,
+				},
 			],
 		},
-		// {
-		// 	id: 'dashboard',
-		// 	path: '/dashboard',
-		// 	loader: () => {
-		// 		const cookies = new Cookies();
-		// 		const auth = cookies.get('cred');
-
-		// 		if (!auth) {
-		// 			return redirect('/');
-		// 		}
-		// 		return null;
-		// 	},
-		// 	element: <DashboardLayout />,
-		// 	children: [
-		// 		{ path: '/dashboard', element: <WelcomePage />, index: true },
-		// 		{ path: '/dashboard/product', element: <ProductPage /> },
-		// 	],
-		// },
-		// {
-		// 	id: 'any',
-		// 	path: '*',
-		// 	element: (
-		// 		<>
-		// 			<h1>Not Found</h1>
-		// 		</>
-		// 	),
-		// },
 	]);
 	return <RouterProvider router={router} />;
 };
