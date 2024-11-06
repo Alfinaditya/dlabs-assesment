@@ -13,12 +13,13 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({
 	table,
 }: DataTableToolbarProps<TData>) {
-	const isFiltered = table.getState().columnFilters.length > 0;
+	const isFiltered = table.getState().columnFilters.length > 0; // Mengecek apakah ada filter yang diterapkan pada kolom tabel.
 	const [openAddUser, setOpenAddUser] = useState(false);
 
 	return (
 		<div className="flex items-center justify-between">
 			<div className="flex flex-1 items-center space-x-2">
+				{/* Menampilkan filter faceted jika kolom 'status' tersedia. */}
 				{table.getColumn('status') && (
 					<DataTableFacetedFilter
 						column={table.getColumn('status')}
@@ -26,6 +27,7 @@ export function DataTableToolbar<TData>({
 						options={statuses}
 					/>
 				)}
+				{/* Jika ada filter yang diterapkan, tampilkan tombol untuk mereset filter. */}
 				{isFiltered && (
 					<Button
 						variant="ghost"

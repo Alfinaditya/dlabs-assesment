@@ -24,15 +24,15 @@ const DeleteUserModal = ({
 	mutableRow: Row<User> | null;
 }) => {
 	const [actionLoading, setActionLoading] = useState(false);
-	const users = useUserStore((state) => state.users);
-	const setUser = useUserStore((state) => state.setUser);
+	const users = useUserStore((state) => state.users); // Mengambil data users dari store zustand
+	const setUser = useUserStore((state) => state.setUser); // Fungsi untuk memperbarui data users di store / setState untuk users
 
 	function handleDeleteProduct() {
 		if (!mutableRow) {
 			return;
 		}
 		setActionLoading(true);
-		setUser(users.filter((user) => user.id !== mutableRow.original.id));
+		setUser(users.filter((user) => user.id !== mutableRow.original.id)); // Menghapus pengguna berdasarkan ID-nya.
 		setActionLoading(false);
 		setOpen(false);
 	}

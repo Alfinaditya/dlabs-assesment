@@ -17,17 +17,19 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const ApiIntegrationPage = () => {
+	// Menggunakan useQuery dari react-query untuk melakukan request data
 	const {
-		isLoading,
-		isError,
-		isSuccess,
-		refetch,
-		data: users,
+		isLoading, // Status ketika data sedang diload
+		isError, // Status ketika terjadi error
+		isSuccess, // Status ketika data berhasil diload
+		refetch, // Fungsi untuk memanggil ulang request data / refetch data
+		data: users, // Data yang diterima setelah request berhasil
 	} = useQuery<User[], Error>({
-		queryKey: [`users`],
-		retry: 1,
-		refetchOnWindowFocus: false,
+		queryKey: [`users`], // unique key untuk query, digunakan oleh react-query untuk cache
+		retry: 1, // Retry request satu kali jika gagal load
+		refetchOnWindowFocus: false, // Tidak melakukan refetch ketika tab browser difokuskan ulang.
 		queryFn: () =>
+			// Fungsi untuk melakukan request HTTP menggunakan axios
 			axios.get('https://api.github.com/users').then((res) => res.data),
 	});
 
@@ -36,6 +38,7 @@ const ApiIntegrationPage = () => {
 			<div className="space-y-4">
 				<h1>Tugas Api Integration</h1>
 
+				{/* Menampilkan loading spinner ketika data sedang dimuat */}
 				{isLoading ? (
 					<div
 						className={cn('m-auto', 'text-center flex justify-center flex-col')}
@@ -51,6 +54,7 @@ const ApiIntegrationPage = () => {
 					</div>
 				) : (
 					<>
+						{/* Menampilkan alert jika terjadi error saat fetch */}
 						{isError && (
 							<>
 								<div className="flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 space-y-4">
@@ -64,12 +68,15 @@ const ApiIntegrationPage = () => {
 											Failed to fetch table data. Please try again.
 										</AlertDescription>
 									</Alert>
+									{/* Tombol untuk retry ketika kerjadi error */}
 									<Button onClick={() => refetch()} variant="outline">
 										Retry
 									</Button>
 								</div>
 							</>
 						)}
+
+						{/* Menampilkan tabel jika request berhasil */}
 						{isSuccess && (
 							<Table>
 								<TableCaption>A list of your user.</TableCaption>

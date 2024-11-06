@@ -29,7 +29,7 @@ import { Input } from '@/components/ui/input';
 import { User } from '../types/User';
 import useUserStore from '../store/user';
 import { Row } from '@tanstack/react-table';
-
+// Mendefinisi schema validasi menggunakan zod
 const editUserSchema = z.object({
 	name: z.string().min(1, { message: 'Name is required' }),
 	email: z.string().email({ message: 'Invalid email address' }),
@@ -53,11 +53,12 @@ const EditUserModal = ({
 	mutableRow: Row<User> | null;
 }) => {
 	const [isLoading, setIsLoading] = useState(false);
-	const users = useUserStore((state) => state.users);
-	const setUser = useUserStore((state) => state.setUser);
+	const users = useUserStore((state) => state.users); // Mengambil data users dari store zustand
+	const setUser = useUserStore((state) => state.setUser); // Fungsi untuk memperbarui data users di store / setState untuk users
 
+	// Menggunakan react-hook-form dengan schema validasi dari zod
 	const form = useForm<z.infer<typeof editUserSchema>>({
-		resolver: zodResolver(editUserSchema),
+		resolver: zodResolver(editUserSchema), // Menggunakan zodResolver untuk validasi value input
 		defaultValues: {
 			name: '',
 			email: '',
@@ -67,6 +68,7 @@ const EditUserModal = ({
 	});
 
 	useEffect(() => {
+		// isi form dengan data pengguna yang ingin diedit.
 		if (mutableRow) {
 			form.setValue('name', mutableRow.original.nama);
 			form.setValue('email', mutableRow.original.email);
@@ -82,6 +84,7 @@ const EditUserModal = ({
 
 		setIsLoading(true);
 
+		// Fungsi mencari dan mengedit data user
 		const updatedUser = users.map((user) => {
 			if (user.id === mutableRow.original.id) {
 				return {
@@ -95,10 +98,11 @@ const EditUserModal = ({
 			return user;
 		});
 
+		// Memperbarui data user dengan data yang telah diedit
 		setUser(updatedUser);
 		setIsLoading(false);
 		setOpen(false);
-		form.reset();
+		form.reset(); // Mereset form.
 	}
 
 	return (

@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input';
 import { User } from '../types/User';
 import useUserStore from '../store/user';
 
+// Mendefinisi schema validasi menggunakan zod
 const addUserSchema = z.object({
 	name: z.string().min(1, { message: 'Name is required' }),
 	email: z.string().email({ message: 'Invalid email address' }),
@@ -42,11 +43,12 @@ const AddUserModal = ({
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
 	const [isLoading, setIsLoading] = useState(false);
-	const users = useUserStore((state) => state.users);
-	const setUser = useUserStore((state) => state.setUser);
+	const users = useUserStore((state) => state.users); // Mengambil data users dari store zustand
+	const setUser = useUserStore((state) => state.setUser); // Fungsi untuk memperbarui data users di store / setState untuk users
 
+	// Menggunakan react-hook-form dengan schema validasi dari zod
 	const form = useForm<z.infer<typeof addUserSchema>>({
-		resolver: zodResolver(addUserSchema),
+		resolver: zodResolver(addUserSchema), // Menggunakan zodResolver untuk validasi value input
 		defaultValues: {
 			name: '',
 			email: '',
@@ -63,10 +65,10 @@ const AddUserModal = ({
 			umur: values.age,
 			status: 'active',
 		};
-		setUser([params, ...users]);
+		setUser([params, ...users]); // Menambahkan user baru ke daftar users di store
 		setIsLoading(false);
 		setOpen(false);
-		form.reset();
+		form.reset(); // Mereset form ke nilai awal
 	}
 
 	return (

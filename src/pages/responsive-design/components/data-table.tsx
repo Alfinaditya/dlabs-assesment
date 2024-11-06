@@ -30,26 +30,31 @@ export function DataTable<TData, TValue>({
 	columns,
 	data,
 }: DataTableProps<TData, TValue>) {
+	// State untuk sorting
 	const [sorting, setSorting] = useState<SortingState>([]);
+
+	// Inisialisasi tabel menggunakan tanstack-table
 	const table = useReactTable({
-		data,
-		columns,
+		data, //data yang akan ditampilkan dalam tabel
+		columns, //kolom yang akan ditampilkan dalam tabel
 		state: {
-			sorting,
+			sorting, // state yang mengelola urutan kolom berdasarkan pengguna
 		},
-		getCoreRowModel: getCoreRowModel(),
-		onSortingChange: setSorting,
-		getFilteredRowModel: getFilteredRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		getFacetedRowModel: getFacetedRowModel(),
-		getFacetedUniqueValues: getFacetedUniqueValues(),
+		getCoreRowModel: getCoreRowModel(), // Mendapatkan model baris dasar (core row model), yang diperlukan untuk rendering tabel.
+		onSortingChange: setSorting, // Fungsi untuk mengubah state sorting setiap kali terjadi perubahan pada sorting
+		getFilteredRowModel: getFilteredRowModel(), // Mendapatkan model baris yang difilter sesuai dengan filter yang diterapkan
+		getSortedRowModel: getSortedRowModel(), // Mendapatkan model baris yang sudah diurutkan sesuai dengan state sorting
+		getFacetedRowModel: getFacetedRowModel(), //Mendapatkan model baris untuk faceting, yang digunakan untuk fitur faceted filtering.
+		getFacetedUniqueValues: getFacetedUniqueValues(), // Mendapatkan unique value untuk faceted filtering.
 	});
 
 	return (
 		<div className="space-y-4">
+			{/* Toolbar untuk tabel */}
 			<DataTableToolbar table={table} />
 			<div className="rounded-md border">
 				<Table>
+					{/* Header tabel */}
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
 							<TableRow key={headerGroup.id}>
@@ -68,6 +73,7 @@ export function DataTable<TData, TValue>({
 							</TableRow>
 						))}
 					</TableHeader>
+					{/* Body tabel */}
 					<TableBody>
 						{table.getRowModel().rows?.length ? (
 							table.getRowModel().rows.map((row) => (
@@ -86,6 +92,7 @@ export function DataTable<TData, TValue>({
 								</TableRow>
 							))
 						) : (
+							// Jika tidak ada hasil
 							<TableRow>
 								<TableCell
 									colSpan={columns.length}
