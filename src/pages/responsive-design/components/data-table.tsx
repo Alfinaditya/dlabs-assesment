@@ -5,9 +5,7 @@ import {
 	useReactTable,
 	SortingState,
 	getSortedRowModel,
-	ColumnFiltersState,
 	getFilteredRowModel,
-	getPaginationRowModel,
 	getFacetedRowModel,
 	getFacetedUniqueValues,
 } from '@tanstack/react-table';
