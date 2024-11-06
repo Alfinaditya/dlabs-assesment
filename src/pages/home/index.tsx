@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
@@ -11,6 +10,9 @@ const HomePage = () => {
 			</Button>
 			<Button variant="link" asChild>
 				<Link to="/crud">Go To CRUD + Local Storage</Link>
+			</Button>
+			<Button variant="link" asChild>
+				<Link to="/api-integration">Go To API Integration</Link>
 			</Button>
 		</div>
 	);

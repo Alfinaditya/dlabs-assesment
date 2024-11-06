@@ -2,5 +2,12 @@
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 
-createRoot(document.getElementById('root')!).render(<App />);
+const queryClient = new QueryClient();
+
+createRoot(document.getElementById('root')!).render(
+	<QueryClientProvider client={queryClient}>
+		<App />
+	</QueryClientProvider>
+);

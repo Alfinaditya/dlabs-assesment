@@ -4,6 +4,7 @@ import RootLayout from '@/pages/layout';
 import ResponsiveDesignPage from './pages/responsive-design';
 import CrudPage from './pages/crud';
 import HomePage from './pages/home';
+import ApiIntegrationPage from './pages/api-integration';
 
 const Router = () => {
 	const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const Router = () => {
 				{
 					path: '/crud',
 					element: <CrudPage />,
+				},
+				{
+					path: '/api-integration',
+					element: <ApiIntegrationPage />,
 				},
 			],
 		},
